@@ -1,0 +1,42 @@
+{
+    "name": "mywin/mywin",
+    "description": "Mywin Framework.",
+    "keywords": ["framework", "mywin"],
+    "license": "MIT",
+    "type": "project",
+    "authors": [{
+        "name":         "Ledon Huang",
+        "email":        "613329127@qq.com",
+        "homepage":     "http://www.613329127.com",
+        "role":         "Engineer"
+    }],
+    "require": {
+        "php": ">=5.5.9"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Mywin\\Mywin\\": "src"
+        },
+        "files": [
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Mywin\\Mywin\\": "src"
+        }
+    },
+    "scripts": {
+        "post-root-package-install": [
+        ],
+        "post-create-project-cmd": [
+        ],
+        "post-install-cmd": [
+        ],
+        "post-update-cmd": [
+        ]
+    },
+    "config": {
+    }
+}
