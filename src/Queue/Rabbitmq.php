@@ -221,11 +221,8 @@ class Rabbitmq
 	 * @param array $data
 	 * @return boolean
 	 */
-	public function send($data)	{
+	public function send(Message $message) {
 		$router = $this->_params['router'];
-		if(is_array($data)) {
-			$data = serialize($data);
-		}
 		if (!$router) {
 			$this->_logger->warn('Publish router is not defined: message cannot be sent');
 			return;
@@ -252,27 +249,17 @@ class Rabbitmq
 			'headers' => ['name' => 'Musikar']
 		];
 		$publishParams = array_merge($this->_publishParams, $publishParams);
-
 		$channel->startTransaction();
 		//将你的消息通过制定routingKey发送
-		$result = $exchange->publish(
-			$data,
-			$router,
-			AMQP_NOPARAM,
-			$publishParams
-		);
-		$result = $exchange->publish(
-			$data,
-			$router,
-			AMQP_NOPARAM,
-			$publishParams
-		);
-		$result = $exchange->publish(
-			$data,
-			$router,
-			AMQP_NOPARAM,
-			$publishParams
-		);
+		$data = $message->getData();
+		foreach ($data as $value) {
+			$result = $exchange->publish(
+    			serialize($value),
+    			$router,
+    			AMQP_NOPARAM,
+    			$publishParams
+    		);
+		}
 		$channel->commitTransaction();
 		$this->close();
 		return $result;
